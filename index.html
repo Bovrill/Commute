@@ -5,19 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Commute</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@300;400;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=Share+Tech+Mono&display=swap');
 
   :root {
     --bg: #0a0c0f;
     --panel: #0f1318;
     --border: #1e2530;
     --amber: #f5a623;
-    --amber-dim: #7a5010;
-    --green: #4ade80;
-    --red: #f87171;
-    --muted: #3a4455;
-    --text: #d0dbe8;
+    --blue: #38bdf8;
+    --tube-red: #e11d48;
     --subtext: #6b7e94;
+    --text: #d0dbe8;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -26,21 +24,20 @@
     background: var(--bg);
     color: var(--text);
     font-family: 'Barlow Condensed', sans-serif;
-    min-height: 100vh;
-    padding: 12px;
+    padding: 10px;
   }
 
   header {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
     padding-bottom: 10px;
     border-bottom: 1px solid var(--border);
   }
 
   header h1 {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     letter-spacing: 0.15em;
     text-transform: uppercase;
@@ -49,194 +46,68 @@
 
   #clock {
     font-family: 'Share Tech Mono', monospace;
-    font-size: 22px;
+    font-size: 20px;
     color: var(--amber);
-    letter-spacing: 0.05em;
   }
 
-  .token-setup {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 20px;
-    margin-bottom: 16px;
-    display: none;
-  }
-
-  .token-setup p {
-    font-size: 14px;
-    color: var(--subtext);
-    margin-bottom: 10px;
-    line-height: 1.5;
-  }
-
-  .token-setup a { color: var(--amber); }
-
-  .token-row {
+  .divider {
     display: flex;
-    gap: 8px;
-    margin-top: 12px;
-  }
-
-  .token-row input {
-    flex: 1;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    color: var(--text);
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 13px;
-    padding: 8px 10px;
-    outline: none;
-  }
-
-  .token-row input:focus { border-color: var(--amber); }
-
-  .token-row button {
-    background: var(--amber);
-    border: none;
-    border-radius: 4px;
-    color: #000;
-    cursor: pointer;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    padding: 8px 16px;
-    text-transform: uppercase;
-  }
-
-  .section {
-    margin-bottom: 14px;
-  }
-
-  .section-header {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 8px 12px;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 6px 6px 0 0;
-    border-bottom: 2px solid var(--amber-dim);
+    gap: 10px;
+    margin: 14px 0 10px;
   }
 
-  .section-header .route {
-    font-size: 16px;
+  .divider-line { flex: 1; height: 1px; background: var(--border); }
+
+  .divider-label {
+    font-size: 10px;
     font-weight: 700;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--text);
-  }
-
-  .section-header .route span {
-    color: var(--amber);
-  }
-
-  .section-header .walk {
-    font-size: 12px;
-    color: var(--subtext);
-    letter-spacing: 0.05em;
-  }
-
-  .departures {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-top: none;
-    border-radius: 0 0 6px 6px;
-    overflow: hidden;
-  }
-
-  .dep-row {
-    display: grid;
-    grid-template-columns: 56px 1fr 70px 60px;
-    align-items: center;
-    padding: 9px 12px;
-    border-bottom: 1px solid var(--border);
-    gap: 8px;
-    transition: background 0.15s;
-  }
-
-  .dep-row:last-child { border-bottom: none; }
-  .dep-row:hover { background: #141921; }
-
-  .dep-time {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 18px;
-    color: var(--amber);
-    line-height: 1;
-  }
-
-  .dep-dest {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text);
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
-  .dep-via {
+  .divider-label.outbound { color: var(--amber); }
+  .divider-label.tube     { color: var(--tube-red); }
+  .divider-label.inbound  { color: var(--blue); }
+
+  .board-wrap {
+    margin-bottom: 8px;
+  }
+
+  .board-label {
     font-size: 11px;
-    color: var(--subtext);
-    margin-top: 1px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .dep-status {
-    font-size: 13px;
     font-weight: 600;
-    text-align: right;
-    letter-spacing: 0.03em;
-  }
-
-  .dep-status.on-time { color: var(--green); }
-  .dep-status.delayed { color: var(--red); }
-  .dep-status.early { color: var(--amber); }
-
-  .dep-plat {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 12px;
-    color: var(--subtext);
-    text-align: right;
-  }
-
-  .loading-row, .error-row {
-    padding: 16px 12px;
-    font-size: 13px;
-    color: var(--subtext);
-    text-align: center;
-    letter-spacing: 0.05em;
-  }
-
-  .error-row { color: var(--red); }
-
-  .refresh-btn {
-    background: none;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    color: var(--subtext);
-    cursor: pointer;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 12px;
-    letter-spacing: 0.08em;
-    padding: 4px 10px;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    transition: all 0.15s;
+    color: var(--subtext);
+    padding: 4px 8px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-bottom: none;
+    border-radius: 4px 4px 0 0;
   }
 
-  .refresh-btn:hover {
-    border-color: var(--amber);
-    color: var(--amber);
+  .board-label .walk {
+    float: right;
+    font-weight: 400;
+    color: #3a4455;
+  }
+
+  iframe {
+    width: 100%;
+    height: 80px;
+    border: 1px solid var(--border);
+    border-radius: 0 0 4px 4px;
+    display: block;
+    background: #000;
   }
 
   footer {
     margin-top: 16px;
     text-align: center;
-    font-size: 11px;
-    color: var(--muted);
+    font-size: 10px;
+    color: #3a4455;
     letter-spacing: 0.05em;
   }
 </style>
@@ -248,152 +119,69 @@
   <div id="clock">--:--:--</div>
 </header>
 
-<div class="token-setup" id="tokenSetup">
-  <p>Enter your <a href="https://api.rtt.io/" target="_blank">RTT API token</a> (free — register at api.rtt.io, use username:password format).</p>
-  <div class="token-row">
-    <input type="text" id="tokenInput" placeholder="username:password" autocomplete="off" />
-    <button onclick="saveToken()">Save</button>
-  </div>
+<!-- OUTBOUND -->
+<div class="divider">
+  <div class="divider-line"></div>
+  <div class="divider-label outbound">Outbound</div>
+  <div class="divider-line"></div>
 </div>
 
-<div id="boards"></div>
+<div class="board-wrap">
+  <div class="board-label">Mitcham Eastfields → Victoria <span class="walk">8 min walk</span></div>
+  <iframe src="https://www.leddepartureboard.com/MTC/to/VIC/1" scrolling="no" frameborder="0"></iframe>
+</div>
 
-<footer>RTT data · refreshes every 60s</footer>
+<div class="board-wrap">
+  <div class="board-label">Mitcham Eastfields → St Pancras <span class="walk">8 min walk</span></div>
+  <iframe src="https://www.leddepartureboard.com/MTC/to/STP/1" scrolling="no" frameborder="0"></iframe>
+</div>
+
+<div class="board-wrap">
+  <div class="board-label">Tooting → St Pancras <span class="walk">12 min walk</span></div>
+  <iframe src="https://www.leddepartureboard.com/TOO/to/STP/1" scrolling="no" frameborder="0"></iframe>
+</div>
+
+<!-- TUBE -->
+<div class="divider">
+  <div class="divider-line"></div>
+  <div class="divider-label tube">Underground</div>
+  <div class="divider-line"></div>
+</div>
+
+<div class="board-wrap">
+  <div class="board-label">Tooting Broadway → Northbound <span class="walk">12 min walk</span></div>
+  <iframe src="https://www.leddepartureboard.com/london-tube/northern/940GZZLUTBC/inbound/1" scrolling="no" frameborder="0"></iframe>
+</div>
+
+<!-- INBOUND -->
+<div class="divider">
+  <div class="divider-line"></div>
+  <div class="divider-label inbound">Homeward</div>
+  <div class="divider-line"></div>
+</div>
+
+<div class="board-wrap">
+  <div class="board-label">Farringdon → Mitcham Eastfields</div>
+  <iframe src="https://www.leddepartureboard.com/ZFD/to/MTC/1" scrolling="no" frameborder="0"></iframe>
+</div>
+
+<div class="board-wrap">
+  <div class="board-label">Farringdon → Tooting</div>
+  <iframe src="https://www.leddepartureboard.com/ZFD/to/TOO/1" scrolling="no" frameborder="0"></iframe>
+</div>
+
+<footer>leddepartureboard.com · auto-refreshes</footer>
 
 <script>
-const ROUTES = [
-  { from: 'MTC', to: 'VIC', label: 'Eastfields', dest: 'Victoria', walk: '8 min walk' },
-  { from: 'MTC', to: 'STP', label: 'Eastfields', dest: "St Pancras", walk: '8 min walk' },
-  { from: 'TOO', to: 'STP', label: 'Tooting', dest: "St Pancras", walk: '12 min walk' },
-];
-
-function getToken() {
-  return localStorage.getItem('rtt_token') || '';
-}
-
-function saveToken() {
-  const val = document.getElementById('tokenInput').value.trim();
-  if (!val) return;
-  localStorage.setItem('rtt_token', val);
-  document.getElementById('tokenSetup').style.display = 'none';
-  loadAll();
-}
-
-function pad(n) { return String(n).padStart(2, '0'); }
-
-function updateClock() {
-  const now = new Date();
-  document.getElementById('clock').textContent =
-    pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
-}
-
-setInterval(updateClock, 1000);
-updateClock();
-
-function renderBoards() {
-  const boards = document.getElementById('boards');
-  boards.innerHTML = '';
-  ROUTES.forEach((route, i) => {
-    const section = document.createElement('div');
-    section.className = 'section';
-    section.innerHTML = `
-      <div class="section-header">
-        <div>
-          <div class="route">${route.label} <span>→ ${route.dest}</span></div>
-          <div class="walk">${route.walk}</div>
-        </div>
-        <button class="refresh-btn" onclick="fetchRoute(${i})">↻</button>
-      </div>
-      <div class="departures" id="deps-${i}">
-        <div class="loading-row">Loading…</div>
-      </div>
-    `;
-    boards.appendChild(section);
-  });
-}
-
-async function fetchRoute(i) {
-  const route = ROUTES[i];
-  const container = document.getElementById(`deps-${i}`);
-  const token = getToken();
-  if (!token) return;
-
-  container.innerHTML = '<div class="loading-row">Loading…</div>';
-
-  const [user, pass] = token.split(':');
-  const url = `https://api.rtt.io/api/v1/json/search/${route.from}/to/${route.to}`;
-
-  try {
-    const resp = await fetch(url, {
-      headers: { 'Authorization': 'Basic ' + btoa(user + ':' + pass) }
-    });
-
-    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-    const data = await resp.json();
-
-    const services = (data.services || []).slice(0, 5);
-    if (!services.length) {
-      container.innerHTML = '<div class="loading-row">No departures found</div>';
-      return;
-    }
-
-    container.innerHTML = services.map(s => {
-      const loc = s.locationDetail;
-      const booked = loc.gbttBookedDeparture || loc.gbttBookedArrival || '----';
-      const rt = loc.realtimeDeparture || loc.realtimeArrival || booked;
-      const fmtBooked = booked.slice(0,2) + ':' + booked.slice(2,4);
-      const fmtRt = rt.slice(0,2) + ':' + rt.slice(2,4);
-
-      let statusText, statusClass;
-      if (loc.cancelReasonCode) {
-        statusText = 'Cancelled';
-        statusClass = 'delayed';
-      } else if (rt === booked) {
-        statusText = 'On time';
-        statusClass = 'on-time';
-      } else {
-        const diff = (parseInt(rt) - parseInt(booked));
-        const mins = Math.floor(diff / 100) * 60 + (diff % 100);
-        if (mins > 0) { statusText = `+${mins} min`; statusClass = 'delayed'; }
-        else { statusText = `${mins} min`; statusClass = 'early'; }
-      }
-
-      const plat = loc.platform ? `Plat ${loc.platform}` : '';
-      const dest = s.locationDetail.destination?.[0]?.description || route.dest;
-
-      return `
-        <div class="dep-row">
-          <div class="dep-time">${fmtBooked}</div>
-          <div>
-            <div class="dep-dest">${dest}</div>
-            ${rt !== booked && !loc.cancelReasonCode ? `<div class="dep-via">Exp ${fmtRt}</div>` : ''}
-          </div>
-          <div class="dep-status ${statusClass}">${statusText}</div>
-          <div class="dep-plat">${plat}</div>
-        </div>`;
-    }).join('');
-
-  } catch(e) {
-    container.innerHTML = `<div class="error-row">Error: ${e.message}</div>`;
+  function pad(n) { return String(n).padStart(2, '0'); }
+  function updateClock() {
+    const now = new Date();
+    document.getElementById('clock').textContent =
+      pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
   }
-}
-
-function loadAll() {
-  renderBoards();
-  ROUTES.forEach((_, i) => fetchRoute(i));
-}
-
-// Init
-const token = getToken();
-if (!token) {
-  document.getElementById('tokenSetup').style.display = 'block';
-  renderBoards();
-} else {
-  loadAll();
-}
-
-// Auto-refresh every 60s
-setInterval(() => ROUTES.forEach((_, i) => fetchRoute(i)), 60000);
+  setInterval(updateClock, 1000);
+  updateClock();
 </script>
+
 </body>
 </html>
