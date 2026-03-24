@@ -233,7 +233,7 @@ function renderBoards() {
     divider('outbound', '↑ Outbound') +
     OUTBOUND.map(r => section('outbound', r.label, r.walk, r.id)).join('') +
     divider('tube', '⬤ Underground') +
-    section('tube', 'Tooting Broadway → Northbound', '12 min walk', 'tube') +
+    section('tube', 'Tooting Broadway → Northbound', '25 min walk', 'tube') +
     divider('inbound', '↓ Homeward') +
     INBOUND.map(r => section('inbound', r.label, r.walk, r.id)).join('');
 }
