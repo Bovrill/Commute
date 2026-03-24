@@ -190,7 +190,7 @@
 const OUTBOUND = [
   { from: 'MTC', to: 'VIC', label: 'Eastfields → Victoria',   walk: '8 min walk',  id: 'o0' },
   { from: 'MTC', to: 'STP', label: 'Eastfields → St Pancras', walk: '8 min walk',  id: 'o1' },
-  { from: 'TOO', to: 'STP', label: 'Tooting → St Pancras',    walk: '12 min walk', id: 'o2' },
+  { from: 'TOO', to: 'STP', label: 'Tooting → St Pancras',    walk: '15 min walk', id: 'o2' },
 ];
 
 const INBOUND = [
@@ -233,7 +233,7 @@ function renderBoards() {
     divider('outbound', '↑ Outbound') +
     OUTBOUND.map(r => section('outbound', r.label, r.walk, r.id)).join('') +
     divider('tube', '⬤ Underground') +
-    section('tube', 'Tooting Broadway → Northbound', '25 min walk', 'tube') +
+    section('tube', 'Tooting Broadway → Northbound', '30 min walk 20 min bus', 'tube') +
     divider('inbound', '↓ Homeward') +
     INBOUND.map(r => section('inbound', r.label, r.walk, r.id)).join('');
 }
